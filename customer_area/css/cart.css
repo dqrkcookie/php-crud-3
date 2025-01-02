@@ -1,0 +1,117 @@
+body {
+  background-color: oldlace;
+}
+
+.cart {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 6rem auto;
+}
+
+.cart table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: oldlace;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 3rem;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#t {
+  color: #333;
+  border-bottom: 2px solid palegreen;
+}
+
+.cart th,
+.cart td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart th {
+  background-color: palegreen;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.cart tbody tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+.cart-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+  background-color: oldlace;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.cart-footer .total {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.cart-footer form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cart-footer textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  resize: vertical;
+  outline: none;
+}
+
+.cart-footer textarea:focus {
+  border-color: palegreen;
+  box-shadow: 0 0 5px rgba(152, 251, 152, 0.5);
+}
+
+.cart-footer span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+}
+
+.cart-footer .place-order {
+  background-color: palegreen;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-footer .place-order:hover {
+  background-color: #90ee90;
+}

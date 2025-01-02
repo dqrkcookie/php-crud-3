@@ -1,35 +1,68 @@
 <?php
 session_start();
-include 'db_connect.php';
+include ('db_connect.php');
 
-$user_id = $_SESSION['user_id'];
+$user = $_SESSION['email'];
 
-if ($_POST['action'] == 'add') {
-    $product_id = $_POST['product_id'];
-    $stmt = $pdo->prepare("INSERT INTO cart (user_id, product_id) VALUES (?, ?)");
-    $stmt->execute([$user_id, $product_id]);
-}
+$items = $pdo->query("SELECT * FROM cart WHERE user = '$user'")->fetchAll();
 
-$stmt = $pdo->prepare("SELECT cart.*, products.name, products.price FROM cart JOIN products ON cart.product_id = products.id WHERE user_id = ?");
-$stmt->execute([$user_id]);
-$cart_items = $stmt->fetchAll();
 ?>
 
-<table>
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($cart_items as $item): ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cofi</title>
+    <link rel="stylesheet" href="./css/cart.css">
+</head>
+<body>
+    
+</body>
+</html>
+
+<div id="browse">
+    <a href="./product_browsing.php">⬅ Browse Products</a>
+</div>
+<div class="cart">
+    <h1>Cart</h1>
+    <table>
+        <thead>
             <tr>
-                <td><?= $item['name'] ?></td>
-                <td><?= $item['price'] ?></td>
-                <td><?= $item['quantity'] ?></td>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php $total = 0 ?>
+            <?php $qty = [] ?>
+            <?php $all_products = [] ?>
+            <?php $products = [] ?>
+            <?php foreach($items as $item) { ?>
+            <?php $total+=($item->price*$item->qty) ?>
+            <?php array_push($qty, $item->qty) ?>
+            <?php array_push($all_products, $item->product_name.' '.$item->qty.'pcs') ?>
+            <?php array_push($products, $item->product_name) ?>
+            <tr>
+                <td><?php echo $item->product_name ?></td>
+                <td><?php echo $item->price ?></td>
+                <td><?php echo $item->qty ?></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <div class="cart-footer">
+        <span class="total">Total: <span id="t"><?php echo $total ?></span></span>
+        <form action="./place_order.php" method="POST">
+            <input type="hidden" name="user" value="<?php echo $user ?>">
+            <input type="hidden" name="prod" value="<?php echo urlencode(json_encode($products)) ?>">
+            <input type="hidden" name="qty" value="<?php echo urlencode(json_encode($qty)) ?>">
+            <input type="hidden" name="product" value="<?php echo urlencode(json_encode($all_products)) ?>">
+            <input type="hidden" name="total" value="<?php echo $total ?>">
+            <span>Cash on Delivery</span>
+            <textarea name="address" placeholder="Enter your address" required></textarea>
+            <button class="place-order" name="place">Place Order</button>
+        </form>
+    </div>
+</div>

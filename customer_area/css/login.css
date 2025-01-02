@@ -1,68 +1,87 @@
-
-body{
-
-padding-top:10%;
-background-color: palegreen;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.form-login {
-max-width:350px;
-padding:40px;
-border-radius:30px;
-background: lightgray;
-margin:0 auto;
-
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: oldlace;
 }
 
-
-.form-login .form-login-heading{
-color: rgb(79, 77, 77);
-text-align:center;
-
+.admin {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 4px;
 }
 
-.form-login .form-control {
-padding: 10px 20px;
-background-color: oldlace; 
-color: black;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-font-size: 14px;
-display: block;
-margin: 10px auto;
-
+form {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 360px;
 }
 
-.form-login input[type="text"] {
-margin-bottom:5px;
-border-bottom-right-radius:0;
-border-bottom-left-radius: 0;
-
+a {
+  text-decoration: none;
+  color: #333;
 }
 
-.form-login input[type="password"] {
-margin-bottom:10px;
-border-top-left-radius: 0;
-border-top-right-radius:0;
-
+a:hover {
+  text-decoration: underline;
 }
 
-.form-login button {
-    display: block;
-    width: 100%; 
-    max-width: 100px; 
-    margin: 10px auto; 
-    padding: 10px;
-    background-color: #51c555; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center;
+h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-.form-login button:hover {
-    background-color: #45a049;
+input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 2px solid lightgray;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: palegreen;
+  box-shadow: 0 0 0 3px rgba(152, 251, 152, 0.2);
+}
+
+button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: palegreen;
+  border: none;
+  border-radius: 6px;
+  color: #333;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #98fb98;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(152, 251, 152, 0.3);
+}
+
+@media (max-width: 480px) {
+  form {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
 }

@@ -1,12 +1,31 @@
 <?php
 session_start();
 include("db_connect.php");
+
+if (isset($_POST['admin_login'])) {
+    $admin_email = $_POST['admin_email'];
+    $admin_pass = $_POST['admin_pass'];
+
+    $stmt = $pdo->prepare("SELECT * FROM admins WHERE admin_email = :email AND admin_pass = :password");
+    $stmt->execute(['email' => $admin_email, 'password' => $admin_pass]);
+
+    $admin = $stmt->fetch();
+
+    if ($admin) {
+        $_SESSION['admin_email'] = $admin_email;
+        echo "<script>alert('Admin Log in Success!')</script>";
+        echo "<script>window.open('dashboard.php?dashboard', '_self')</script>";
+    } else {
+        echo "<script>alert('Invalid Credentials!')</script>";
+    }
+}
+
 ?>
 
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Admin Login</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
@@ -22,23 +41,3 @@ include("db_connect.php");
     </div>
 </body>
 </html>
-
-<?php
-if (isset($_POST['admin_login'])) {
-    $admin_email = $_POST['admin_email'];
-    $admin_pass = $_POST['admin_pass'];
-
-    $stmt = $pdo->prepare("SELECT * FROM admins WHERE admin_email = :email AND admin_pass = :password");
-    $stmt->execute(['email' => $admin_email, 'password' => $admin_pass]);
-
-    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($admin) {
-        $_SESSION['admin_email'] = $admin_email;
-        echo "<script>alert('You are Logged in into admin panel')</script>";
-        echo "<script>window.open('dashboard.html?dashboard', '_self')</script>";
-    } else {
-        echo "<script>alert('Email or Password is Wrong')</script>";
-    }
-}
-?>

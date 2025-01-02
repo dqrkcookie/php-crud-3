@@ -3,7 +3,7 @@
 session_start();
 include("./db_connect.php");
 
-$query = $pdo->query("SELECT * FROM order_management ORDER BY id")->fetchAll();
+$query = $pdo->query("SELECT * FROM history ORDER BY id")->fetchAll();
 
 ?>
 
@@ -64,34 +64,28 @@ $query = $pdo->query("SELECT * FROM order_management ORDER BY id")->fetchAll();
     </style>
 </head>
 <body>
-    <h1>Order Management</h1>
+    <h1>Transaction History</h1>
 
     <a href="./dashboard.php">Go Back</a>
 
     <table>
         <thead>
             <tr>
-                <th>Ordered Products</th>
-                <th>Customer</th>
-                <th>Total Amount</th>
-                <th>Address</th>
-                <th>Status</th>
-                <th>Update Status</th>
+                <th>Name</th>
+                <th>Products</th>
+                <th>Payment</th>
+                <th>Date</th>
+                <th>Transaction</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach($query as $q) { ?>
                 <tr>
-                    <td><?php echo implode(', ', json_decode($q->product_name) )?></td>
-                    <td><?php echo $q->user ?></td>
-                    <td><?php echo $q->price ?></td>
-                    <td><?php echo $q->address ?></td>
-                    <td><?php echo $q->status ?></td>
-                    <?php if($q->status == 'Pending') { ?>
-                        <td><a href="./accept.php?user=<?php echo $q->user ?>&products=<?php echo urlencode($q->product_name) ?>">Accept</a></td>
-                    <?php } else {?>
-                        <td><?php echo 'Accepted' ?></td>
-                    <?php } ?>
+                    <td><?php echo $q->name ?></td>
+                    <td><?php echo implode(', ', json_decode($q->products) )?></td>
+                    <td><?php echo $q->total ?></td>
+                    <td><?php echo $q->date ?></td>
+                    <td><?php echo $q->transaction ?></td>
                 </tr>    
             <?php } ?>
         </tbody>
