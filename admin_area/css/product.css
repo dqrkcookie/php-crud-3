@@ -16,7 +16,7 @@ section {
 }
 
 form {
-  background: #f0f0f0;
+  background: white;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -55,7 +55,7 @@ input[type='submit']:hover {
 }
 
 .products {
-  background: #f0f0f0;
+  background: palegreen;
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -82,6 +82,10 @@ th:first-child {
 
 th:last-child {
   border-top-right-radius: 5px;
+}
+
+tr {
+  background-color: white;
 }
 
 tr:nth-child(even) {
@@ -138,7 +142,7 @@ td {
 .edit {
   display: none;
   position: fixed;
-  top: 57%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #f0f0f0;

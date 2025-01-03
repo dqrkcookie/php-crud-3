@@ -3,6 +3,10 @@
 session_start();
 include("./db_connect.php");
 
+if(empty($_SESSION['email'])){
+  header("Location: ../index.php");
+}
+
 $user = $_SESSION['email'];
 
 $query = $pdo->query("SELECT * FROM placed_orders WHERE user = '$user'")->fetchAll();

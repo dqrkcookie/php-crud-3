@@ -69,5 +69,6 @@ $totalTransactions = $transactionsData->total_transactions;
         </div>
       </div>
     </section>
+    <img src="../photos/icon/rb_3051.png" alt="Coffee Photo">
   </body>
 </html>

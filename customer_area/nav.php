@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cofi</title>
+  <script src="https://kit.fontawesome.com/b70669fb91.js" crossorigin="anonymous"></script>
   <style>
     * {
         margin: 0;
@@ -37,7 +38,7 @@
 
     .logo a {
         text-decoration: none;
-        color: #333;
+        color: #444;
     }
 
     .search-container {
@@ -124,28 +125,28 @@
         
         <form class="search-container" action="./product_browsing.php" method="GET">
             <input type="text" class="search-bar" name="search" placeholder="Search...">
-            <button type="submit" name="look" value="search">🔍</button>
+            <button type="submit" name="look" value="search"><i class="fa-solid fa-magnifying-glass fa-md" style="color: #444;"></i></button>
         </form>
         
         <div class="nav-items">
             <a href="./cart.php" class="nav-item">
-                <div class="icon">🛒</div>
+                <div class="icon"><i class="fa-solid fa-mug-hot fa-xl" style="color: #444;"></i></i></div>
                 <span class="icon-text">Cart</span>
             </a>
             <a href="./placed_orders.php" class="nav-item">
-                <div class="icon">📦</div>
+                <div class="icon"><i class="fa-solid fa-box fa-lg" style="color: #444;"></i></div>
                 <span class="icon-text">Orders</span>
             </a>
             <a href="./history.php" class="nav-item">
-                <div class="icon">📜</div>
+                <div class="icon"><i class="fa-solid fa-clock-rotate-left fa-lg" style="color: #444;"></i></div>
                 <span class="icon-text">History</span>
             </a>
             <a href="./account.php" class="nav-item">
-                <div class="icon">⚙️</div>
+                <div class="icon"><i class="fa-solid fa-gear fa-lg" style="color: #444;"></i></div>
                 <span class="icon-text">Settings</span>
             </a>
             <a href="./logout.php" class="nav-item">
-                <div class="icon">🚪</div>
+                <div class="icon"><i class="fa-solid fa-door-open fa-lg" style="color: #444;"></i></div>
                 <span class="icon-text">Logout</span>
             </a>
         </div>

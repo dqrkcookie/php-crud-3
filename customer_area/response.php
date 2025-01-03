@@ -3,6 +3,10 @@
 session_start();
 include("./db_connect.php");
 
+if(empty($_SESSION['email'])){
+  header("Location: ../index.php");
+}
+
 $response = $_GET['res'];
 $user = $_GET['user'];
 $price = $_GET['price'];

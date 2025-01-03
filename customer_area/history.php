@@ -1,88 +1,94 @@
 <?php
-
 session_start();
 include("./db_connect.php");
 
+if (!isset($_SESSION['email'])) {
+    header("Location: ../index.php");
+    exit();
+}
+
 $user = $_SESSION['email'];
 
-$query = $pdo->query("SELECT * FROM history WHERE name = '$user'")->fetchAll();
-
+$stmt = $pdo->prepare("SELECT * FROM history WHERE name = :name");
+$stmt->execute(['name' => $user]);
+$query = $stmt->fetchAll();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cofi</title>
+  <title>Cofi - Order History</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: oldlace;
       margin: 0;
       padding: 20px;
+      color: #333;
     }
-
     table {
       width: 100%;
       max-width: 800px;
       margin: auto;
       border-collapse: collapse;
-      background-color: oldlace;
       border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-top: 6rem;
+      background-color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-top: 4rem;
     }
-
     thead {
-      background-color: palegreen;
+      background-color: #98fb98;
       color: #333;
       text-transform: uppercase;
     }
-
-    th {
+    th, td {
+      padding: 16px;
       text-align: left;
-      padding: 15px;
-      font-size: 16px;
     }
-
-    tr {
-      border-bottom: 1px solid #ddd;
-    }
-
     tbody tr {
-      background-color: #f0f0f0;
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.3s;
     }
-
-    td {
-      padding: 15px;
-      font-size: 14px;
-      color: #333;
+    tbody tr:hover {
+      background-color: #f1f1f1;
     }
-
     .back a {
       text-decoration: none;
-      color: #333;
+      color: #444;
       font-size: 0.9rem;
     }
-
     .back a:hover {
       text-decoration: underline;
     }
-
-    h1{
+    h1 {
       text-align: center;
-      margin-top: 2rem;
-      font-size: 3rem;
-      font-weight: 600;
+      margin: 2rem 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2c3e50;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right, palegreen, #90ee90);
+      border-radius: 2px;
     }
   </style>
 </head>
 <body>
-<div class="back"><a href="./product_browsing.php">⬅ Browse Products</a></div>
-<div><h1>Order History</h1></div>
+  <div class="back"><a href="./product_browsing.php">⬅ Browse Products</a></div>
+  <div><h1>Order History</h1></div>
   <div class="history">
     <table>
       <thead>
@@ -95,15 +101,26 @@ $query = $pdo->query("SELECT * FROM history WHERE name = '$user'")->fetchAll();
         </tr>
       </thead>
       <tbody>
-        <?php foreach($query as $q) { ?>
+        <?php if ($query): ?>
+          <?php foreach ($query as $q): ?>
+            <tr>
+              <td><?php echo $q->name ?></td>
+              <td>
+                <?php 
+                $products = json_decode($q->products, true);
+                echo $products ? implode(', ', $products) : "Invalid data"; 
+                ?>
+              </td>
+              <td><?php echo $q->total ?></td>
+              <td><?php echo $q->date ?></td>
+              <td><?php echo $q->transaction ?></td>
+            </tr>
+          <?php endforeach; ?>
+        <?php else: ?>
           <tr>
-            <td><?php echo $q->name ?></td>
-            <td><?php echo implode(', ', json_decode($q->products)) ?></td>
-            <td><?php echo $q->total ?></td>
-            <td><?php echo $q->date ?></td>
-            <td><?php echo $q->transaction ?></td>
+            <td colspan="5">No order history found.</td>
           </tr>
-        <?php } ?>
+        <?php endif; ?>
       </tbody>
     </table>
   </div>

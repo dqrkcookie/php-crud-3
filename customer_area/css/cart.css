@@ -1,9 +1,10 @@
 body {
   background-color: oldlace;
+  font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .cart {
-  background-color: #f0f0f0;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -19,8 +20,25 @@ body {
 
 h1 {
   text-align: center;
-  margin-top: 2rem;
-  font-size: 3rem;
+  margin: 2rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, palegreen, #90ee90);
+  border-radius: 2px;
 }
 
 a {
@@ -79,20 +97,21 @@ a:hover {
 }
 
 .cart-footer textarea {
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 94%;
+  min-height: 100px;
+  padding: 1rem;
+  font-size: 0.95rem;
+  border: 2px solid #edf2f7;
+  border-radius: 8px;
   resize: vertical;
-  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
 
 .cart-footer textarea:focus {
   border-color: palegreen;
-  box-shadow: 0 0 5px rgba(152, 251, 152, 0.5);
+  box-shadow: 0 0 0 3px rgba(152, 251, 152, 0.2);
+  outline: none;
 }
 
 .cart-footer span {

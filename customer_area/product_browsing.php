@@ -3,6 +3,10 @@ session_start();
 include 'db_connect.php';
 include("./nav.php");
 
+if(empty($_SESSION['email'])){
+    header("Location: ../index.php");
+  }
+
 $user = $_SESSION['email'];
 $query = $pdo->query("SELECT * FROM products")->fetchAll();
 
@@ -17,10 +21,10 @@ function displayProducts($products, $user) {
                     <input type="hidden" name="name" value="<?php echo $product->name ?>">
                     <input type="hidden" name="price" value="<?php echo $product->price ?>">
                     <input type="hidden" name="user" value="<?php echo $user ?>">
-                    <button class="btn btn-delete" type="button" id="dec"><</button>
+                    <button class="btn btn-delete" type="button" id="dec"><i class="fa-solid fa-less-than" style="color: #444;"></i></button>
                     <input type="number" min="1" value="1" id="qty" name="qty">
-                    <button class="btn btn-delete" type="button" id="inc">></button>
-                    <button class="btn btn-edit" type="submit" name="add">+🛒</button>
+                    <button class="btn btn-delete" type="button" id="inc"><i class="fa-solid fa-greater-than" style="color: #444;"></i></button>
+                    <button class="btn btn-edit" type="submit" name="add">+<i class="fa-solid fa-mug-hot fa-lg" style="color: #444;"></i></button>
                 </form>
             </div>
         </div>
@@ -51,6 +55,10 @@ function displayProducts($products, $user) {
                 </select>
                 <input type="submit" value="✔" name="submit-category">
             </form>
+        </div>
+
+        <div id="avail">
+            <h1>Available Products</h1>
         </div>
 
         <div class="sort-group">

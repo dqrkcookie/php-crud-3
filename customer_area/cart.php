@@ -2,6 +2,10 @@
 session_start();
 include ('db_connect.php');
 
+if(empty($_SESSION['email'])){
+    header("Location: ../index.php");
+  }
+
 $user = $_SESSION['email'];
 
 $items = $pdo->query("SELECT * FROM cart WHERE user = '$user'")->fetchAll();
@@ -15,6 +19,7 @@ $items = $pdo->query("SELECT * FROM cart WHERE user = '$user'")->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cofi</title>
     <link rel="stylesheet" href="./css/cart.css">
+    <script src="https://kit.fontawesome.com/b70669fb91.js" crossorigin="anonymous"></script>
 </head>
 <body>
     
@@ -32,6 +37,7 @@ $items = $pdo->query("SELECT * FROM cart WHERE user = '$user'")->fetchAll();
                 <th>Product</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +54,7 @@ $items = $pdo->query("SELECT * FROM cart WHERE user = '$user'")->fetchAll();
                 <td><?php echo $item->product_name ?></td>
                 <td><?php echo $item->price ?></td>
                 <td><?php echo $item->qty ?></td>
+                <td><a href="./delete.php?delete=yes&name=<?php echo $item->product_name ?>"><i class="fa-solid fa-trash fa-lg" style="color: #444;"></i></a></td>
             </tr>
             <?php } ?>
         </tbody>

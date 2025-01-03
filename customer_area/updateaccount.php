@@ -3,6 +3,10 @@
 session_start();
 include("./db_connect.php");
 
+if(empty($_SESSION['email'])){
+    header("Location: ../index.php");
+  }
+
 $email1 = $_SESSION['email'];
 
 if(isset($_POST['save'])){

@@ -2,6 +2,10 @@
 session_start();
 include("./db_connect.php");
 
+if(empty($_SESSION['email'])){
+  header("Location: ../index.php");
+}
+
 $user = $_SESSION['email'];
 
 $query = $pdo->query("SELECT * FROM customers WHERE email = '$user'")->fetch();
@@ -14,130 +18,270 @@ $query = $pdo->query("SELECT * FROM customers WHERE email = '$user'")->fetch();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cofi</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: oldlace;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      height: 100vh;
-      box-sizing: border-box;
-      flex-direction: column;
-    }
+      body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        background: linear-gradient(135deg, oldlace, #fff8ee);
+        margin: 0;
+        padding: 24px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+      }
 
-    h1 {
-      text-align: center;
-      font-size: 3rem;
-      font-weight: 600;
-      color: #333;
-      margin: 2rem auto;
-    }
+      h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 2rem auto;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
 
-    .profile {
-      background-color: #f0f0f0;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
-      position: relative;
-      margin: 2rem auto;
-    }
+      h1::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(to right, palegreen, #88f188);
+        border-radius: 2px;
+      }
 
-    .profile img {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 20px;
-      border: 3px solid palegreen;
-    }
+      .profile {
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        padding: 32px;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+        position: relative;
+        margin: 2rem auto;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
 
-    .profile span {
-      display: block;
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 10px;
-    }
+      .profile:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      }
 
-    .profile span:first-child {
-      font-size: 18px;
-      font-weight: bold;
-      color: palegreen;
-    }
+      .profile img {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 24px auto;
+        border: 4px solid white;
+        box-shadow: 0 0 0 4px palegreen, 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
 
-    .back a {
-      text-decoration: none;
-      color: #333;
-      font-size: 0.9rem;
-      position: absolute;
-      top: 20px;
-      left: 20px;
-    }
+      .profile img:hover {
+        transform: scale(1.05);
+      }
 
-    .back a:hover {
-      text-decoration: underline;
-    }
+      .profile span {
+        display: block;
+        font-size: 1rem;
+        color: #4a5568;
+        margin-bottom: 12px;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background-color 0.2s ease;
+        cursor: default;
+      }
 
-    #popover {
-      display: none;
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: oldlace;
-      border-radius: 8px;
-      padding: 20px;
-      width: 100%;
-      max-width: 300px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
+      .profile span:hover {
+        background-color: #f8f9fa;
+      }
 
-    #popover form {
-      display: flex;
-      flex-direction: column;
-    }
+      .profile span:first-of-type {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        border-bottom: 2px solid palegreen;
+        display: inline-block;
+        padding-bottom: 4px;
+      }
 
-    #popover label {
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
+      .back a {
+        text-decoration: none;
+        color: #2c3e50;
+        font-size: 1rem;
+      }
 
-    #popover input[type="text"],
-    #popover input[type="email"],
-    #popover input[type="file"] {
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+      .back a:hover {
+        text-decoration: underline;
+      }
 
-    #popover button, #btn {
-      background-color: palegreen;
-      border: none;
-      padding: 10px;
-      margin: 5px 0;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s ease;
-    }
+      #btn {
+        background-color: palegreen;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-top: 16px;
+        transition: all 0.2s ease;
+      }
 
-    #popover button:hover, #btn:hover {
-      background-color: #88f188;
-    }
+      #btn:hover {
+        background-color: #88f188;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(152, 251, 152, 0.3);
+      }
 
-    #popover .close {
-      background-color: oldlace;
-    }
+      #popover {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border-radius: 16px;
+        padding: 32px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+        animation: slideIn 0.3s ease;
+      }
 
-    #popover button:focus {
-      outline: none;
-    }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -48%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+      }
 
+      #popover form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      #popover label {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 4px;
+      }
+
+      #popover input[type="text"],
+      #popover input[type="email"] {
+        padding: 12px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+      }
+
+      #popover input[type="text"]:focus,
+      #popover input[type="email"]:focus {
+        border-color: palegreen;
+        box-shadow: 0 0 0 3px rgba(152, 251, 152, 0.2);
+        outline: none;
+      }
+
+      #popover input[type="file"] {
+        padding: 8px;
+        border: 2px dashed #e2e8f0;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      #popover input[type="file"]::-webkit-file-upload-button {
+        background-color: #f0f0f0;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-right: 12px;
+        transition: background-color 0.2s ease;
+      }
+
+      #popover input[type="file"]::-webkit-file-upload-button:hover {
+        background-color: #e0e0e0;
+      }
+
+      #popover button {
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      #popover button[type="submit"] {
+        background-color: palegreen;
+        border: none;
+        color: #2c3e50;
+      }
+
+      #popover button[type="submit"]:hover {
+        background-color: #88f188;
+        transform: translateY(-2px);
+      }
+
+      #popover button[type="button"] {
+        background-color: #f0f0f0;
+        border: none;
+        color: #4a5568;
+      }
+
+      #popover button[type="button"]:hover {
+        background-color: #e0e0e0;
+      }
+
+      #status{
+        width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 16px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .profile {
+          padding: 24px;
+        }
+
+        .profile img {
+          width: 150px;
+          height: 150px;
+        }
+
+        #popover {
+          padding: 24px;
+        }
+      }
+
+      .backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 100;
+      }
+
+      #popover {
+        z-index: 101;
+      }
   </style>
 </head>
 <body>
@@ -145,7 +289,7 @@ $query = $pdo->query("SELECT * FROM customers WHERE email = '$user'")->fetch();
   <h1>Account Settings</h1>
   <div class="profile">
     <img src="../photos/profile/<?php echo $query->profile ?>" alt="Profile Picture">
-    <span>Status: <?php echo $query->status; ?></span>
+    <span id="status">Status: <?php echo $query->status; ?></span>
     <span>Username: <?php echo $query->username; ?></span>
     <span>Email: <?php echo $query->email; ?></span>
     <span>Date Created: <?php echo $query->created_at; ?></span>

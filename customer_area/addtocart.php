@@ -3,6 +3,10 @@
 session_start();
 include("./db_connect.php");
 
+if(empty($_SESSION['email'])){
+  header("Location: ../index.php");
+}
+
 if(isset($_POST['add'])){
   $name = $_POST['name'];
   $price = $_POST['price'];

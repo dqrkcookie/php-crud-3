@@ -3,6 +3,10 @@
 session_start();
 include("./db_connect.php");
 
+if(empty($_SESSION['admin_email'])){
+  header("Location: ./login.php");
+}
+
 $user = $_GET['user'];
 $products = $_GET['products'];
 

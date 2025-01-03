@@ -192,7 +192,7 @@ $lists = $products->fetchAll();
                                 <label>Category</label>
                                 <input type="text" name="category" placeholder="Product Category" value="<?php echo $list->category_id ?>">
                                 <label>Product Picture</label>
-                                <input type="file" accept="image/*" name="picture">
+                                <input type="file" accept="image/*" name="picture" required>
                                 <input type="hidden" value="<?php echo $list->id ?>" name="id">
                                 <button type="submit" name="edit">Save</button>
                             </form>
