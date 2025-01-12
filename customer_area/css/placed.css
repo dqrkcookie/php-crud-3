@@ -74,7 +74,7 @@ td {
 
 .status-container {
   display: inline-block;
-  margin-top: 6px;
+  margin-left: 12px;
 }
 
 a {
@@ -111,12 +111,14 @@ a[href*='res=no']:hover {
 .back a {
   text-decoration: none;
   color: #444;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  padding: 2px 4px;
+  margin-right: 8px;
 }
 
 .back a:hover {
   text-decoration: underline;
-  color: #0056b3;
+  transform: scale(1);
 }
 
 @media (max-width: 768px) {

@@ -3,7 +3,7 @@ session_start();
 include("./db_connect.php");
 
 if(empty($_SESSION['email'])){
-  header("Location: ../index.php");
+  header("Location: ./login.php");
 }
 
 $user = $_SESSION['email'];
@@ -305,7 +305,7 @@ $query = $pdo->query("SELECT * FROM customers WHERE email = '$user'")->fetch();
       <input type="email" id="email" name="email" value="<?php echo $query->email; ?>" required>
 
       <label for="profile_picture">Profile Picture:</label>
-      <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+      <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required>
 
       <button type="submit" name="save">Save</button>
       <button type="button" id="close">Cancel</button>

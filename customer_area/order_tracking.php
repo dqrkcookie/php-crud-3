@@ -3,7 +3,7 @@ session_start();
 include 'db_connect.php';
 
 if(empty($_SESSION['email'])){
-    header("Location: ../index.php");
+    header("Location: ./login.php");
   }
 
 $user_id = $_SESSION['user_id'];

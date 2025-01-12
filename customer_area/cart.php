@@ -3,7 +3,7 @@ session_start();
 include ('db_connect.php');
 
 if(empty($_SESSION['email'])){
-    header("Location: ../index.php");
+    header("Location: ./login.php");
   }
 
 $user = $_SESSION['email'];
@@ -52,7 +52,7 @@ $items = $pdo->query("SELECT * FROM cart WHERE user = '$user'")->fetchAll();
             <?php array_push($products, $item->product_name) ?>
             <tr>
                 <td><?php echo $item->product_name ?></td>
-                <td><?php echo $item->price ?></td>
+                <td>₱<?php echo $item->price ?></td>
                 <td><?php echo $item->qty ?></td>
                 <td><a href="./delete.php?delete=yes&name=<?php echo $item->product_name ?>"><i class="fa-solid fa-trash fa-lg" style="color: #444;"></i></a></td>
             </tr>
@@ -60,7 +60,7 @@ $items = $pdo->query("SELECT * FROM cart WHERE user = '$user'")->fetchAll();
         </tbody>
     </table>
     <div class="cart-footer">
-        <span class="total">Total: <span id="t"><?php echo $total ?></span></span>
+        <span class="total">Total: ₱<span id="t"><?php echo $total ?></span></span>
         <form action="./place_order.php" method="POST">
             <input type="hidden" name="user" value="<?php echo $user ?>">
             <input type="hidden" name="prod" value="<?php echo urlencode(json_encode($products)) ?>">

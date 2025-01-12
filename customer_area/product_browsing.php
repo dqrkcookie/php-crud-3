@@ -4,7 +4,7 @@ include 'db_connect.php';
 include("./nav.php");
 
 if(empty($_SESSION['email'])){
-    header("Location: ../index.php");
+    header("Location: ./login.php");
   }
 
 $user = $_SESSION['email'];
@@ -15,7 +15,7 @@ function displayProducts($products, $user) {
         <div class="item-card">
             <div class="item-image"><img src="../photos/<?php echo $product->image; ?>" alt="Product image"></div>
             <div class="item-name"><?php echo $product->name; ?></div>
-            <div class="item-price"><?php echo $product->price; ?></div>
+            <div class="item-price">₱<?php echo $product->price; ?></div>
             <div class="card-actions">
                 <form action="./addtocart.php" method="POST">
                     <input type="hidden" name="name" value="<?php echo $product->name ?>">

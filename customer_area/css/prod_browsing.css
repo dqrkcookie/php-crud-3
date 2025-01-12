@@ -23,7 +23,9 @@
 
 #avail h1 {
   color: #444;
-  font-size: 3rem;
+  font-size: 2.5rem;
+  margin-top: 3rem;
+  border-bottom: 4px solid palegreen;
 }
 
 .item-card:hover {

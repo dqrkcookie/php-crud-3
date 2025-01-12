@@ -53,7 +53,7 @@ $totalTransactions = $transactionsData->total_transactions;
       <div class="overview">
         <div class="card">
           <h3>Total Revenue</h3>
-          <p><?php echo $totalRevenue ?></p>
+          <p>₱<?php echo $totalRevenue ?></p>
         </div>
         <div class="card">
           <h3>Total Products</h3>

@@ -42,7 +42,9 @@ if(isset($_POST['submit'])){
     $params = [$name, $desc, $price, $stocks, $categ, $newFileName];
     
     if($stmt->execute($params)){
-        echo "<script>echo('Product Added!');</script>";
+        echo "<script>alert('Product Added!');
+            window.location.href = './product_management.php?added';
+        </script>";
     }
 }
 

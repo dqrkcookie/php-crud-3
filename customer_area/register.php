@@ -14,7 +14,7 @@ if(isset($_POST['register'])){
     
     echo "<script> 
         alert('Registration success!');
-        window.location.href = '../index.php';
+        window.location.href = './login.php';
     </script>";
 }
 
@@ -30,14 +30,11 @@ if(isset($_POST['register'])){
 </head>
 <body>
     <form method="post">
-        <a href="../index.php">Return</a>
+        <a href="./login.php">Return</a>
         <h2>Register</h2>
-        <label>Username:</label>
-        <input type="text" name="username" required>
-        <label>Email:</label>
-        <input type="email" name="email" required>
-        <label>Password:</label>
-        <input type="password" name="password" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="password" name="password" placeholder="Password" required>
         <button type="submit" name="register">Register</button>
     </form>
 </body>
