@@ -13,7 +13,7 @@
 }
 
 .item-card {
-  background: white;
+  background: rgba(250, 247, 247, 0.805);
   border-radius: 25px 0 25px 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
